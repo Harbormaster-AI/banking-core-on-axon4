@@ -1,0 +1,14 @@
+gitRepo:
+  gitProvider: 
+  path: /banking-core-on-axon4
+  TestDBUrl: 
+  TestDBName: bankingeventsourced_test_db
+  TestDBPassword: 
+  TestDBDialect: org.hibernate.dialect.MySQL8Dialect 
+  TestDBDriver: com.mysql.cj.jdbc.Driver
+  DockerUserName: tylertravismya
+  DockerPassword: 69cutlass
+  DockerOrgName: theharbormaster
+  DockerRepo: banking-on-go-lang
+  DockerHost: ${aib.getParam("docker.host")}
+  DockerTag: latest
