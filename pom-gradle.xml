@@ -74,7 +74,8 @@
 											<arg value="${basedir}/gradlew"/>
 										</exec>
 						      			<exec executable="${basedir}/gradlew" logError="false" failonerror="false" failifexecutionfails="false">
-								<arg value="build"/>
+							      			<arg value="compileJava"/>
+							      			<arg value="compileKotlin"/>
 						      			</exec>
 										<if>
 									  		<equals arg1="${git}" arg2="true" />
@@ -90,7 +91,8 @@
 						      		<os family="windows"/>
 									<then>
 						      			<exec executable="${project.basedir}/gradlew.bat" logError="false" failonerror="false" failifexecutionfails="false">
-								<arg value="build"/>
+							      			<arg value="compileJava"/>
+							      			<arg value="compileKotlin"/>
 						      			</exec>
 										<if>
 									  		<equals arg1="${git}" arg2="true" />

@@ -115,7 +115,7 @@ jobs:
       - run:
           name: creating docker image..considering using env vars DOCKER_USER and DOCKER_PASS
           command: |
-            docker login --username tylertravismya --password 69cutlass ${dockerHost}
+            docker login --username tylertravismya --password 69cutlass docker.io
             docker build -t theharbormaster/banking-on-go-lang:latest -f Dockerfile .
             docker push theharbormaster/banking-on-go-lang:latest
 

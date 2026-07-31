@@ -10,5 +10,5 @@ gitRepo:
   DockerPassword: 69cutlass
   DockerOrgName: theharbormaster
   DockerRepo: banking-on-go-lang
-  DockerHost: ${aib.getParam("docker.host")}
+  DockerHost: docker.io
   DockerTag: latest

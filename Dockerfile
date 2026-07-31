@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.title="bankingeventsourced"
 LABEL org.opencontainers.image.version="0.0.1"
 LABEL com.harbormaster.blueprint="Axon4-Framework-Server"
 LABEL com.harbormaster.model="Banking Industry Domain Model"
-LABEL com.harbormaster.generated="2026-07-29"
+LABEL com.harbormaster.generated="2026-07-31"
 #LABEL com.harbormaster.certification="${certificationIdentifier}"
 
 RUN addgroup -S spring && adduser -S -G spring spring

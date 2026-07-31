@@ -107,6 +107,65 @@ pipelines:
 
 
       # ======================================================= 
+      # Build Step
+      # =======================================================    
+      - name:                             build_step    # Unique name <required>
+        type:                             MvnBuild  # build type <required>  
+        
+        # ======================================================= 
+        # Step configuration
+        # =======================================================
+         
+        configuration:      
+
+          autoPublishBuildInfo:           true                # Publishes build info to Artifactory. Requires a BuildInfo resources in the outputResources list. Default is false.
+          sourceLocation:                 .                   # The source code starts at the root directory
+          mvnCommand:                     clean package       # Tells Maven to perform a clean then package the app
+          forceXrayScan:                  true                # Forces an Xray scan after publishing to Artifactory
+          failOnScan:                     true                # When set to  true, and  when the Xray Policy RuleFail Build  checkbox is checked, a failed Xray scan will result in a failure of the step
+          deployerReleaseRepo:                # Snapshot artifacts created by the MvnBuild are uploaded to this Artifactory repository
+          deployerSnapshotRepo:               # Release artifacts created by the MvnBuild are uploaded to this Artifactory repository.
+          affinityGroup:                  shared_affinity_group # used to bind steps <optional>
+          
+          outputResources:
+            - name:                       build_info  # Uses the defined Maven build info resource               
+          
+          inputResources:
+            - name:                       git_repo         # Use the git_repo resource   
+         
+          environmentVariables:
+              skipTests:                  "true"                # Determines if testing should be skipped or invoked during Maven packaging
+              DATABASE_URL:                       # if skipTests set to false, make sure the host name or ip address to running MySQL instance
+              
+          integrations:
+            - name:                         # Must specify an Artifactory Integration <required>  
+                
+        execution:
+          
+          onStart:
+            - echo "Install dependencies..."
+            - bundle install --path vendor/bundle
+
+            - export DEFAULT_HOST_ADDRESS=127.0.0.1
+            - export DEFAULT_HOST_PORT=27017
+            - export DATABASE_USERNAME=root
+            - export DATABASE_PASSWORD=letmein2
+            - export DATABASE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+            - export DATABASE_DRIVER=com.mysql.cj.jdbc.Driver
+            - export DATABASE_URL=jdbc:mysql://localhost:3306/bankingeventsourced?createDatabaseIfNotExist=true
+
+          onExecute:
+            - mvn package
+            - cd terraform && chmod 777 terraform.sh && ./terraform.sh install
+          onSuccess:                       
+            - echo "Successfully installed, built, and tested
+            
+          onFailure:
+            - echo "Failture..."
+            
+
+
+      # ======================================================= 
       # Docker Build Step
       # =======================================================   
       - name: docker_build_step                               # Unique name <required>
